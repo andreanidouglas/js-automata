@@ -1,18 +1,18 @@
-var creatureType = [2];
+let creatureType = [2];
 creatureType[0] = "Pray";
 creatureType[1] = "Hunter";
 
-var encounterType = [3];
+let encounterType = [3];
 encounterType[0] = "Kill";
 encounterType[1] = "Mate";
 encounterType[2] = "Get Killed";
 
-var healFactor = 1;
+let healFactor = 1;
 
 
-var default_health = 200;
+let default_health = 200;
 
-var Creature = function(type, x, y){
+let Creature = function(type, x, y){
     
     this.type = type;
     this.health = default_health;
@@ -32,7 +32,7 @@ var Creature = function(type, x, y){
 };
 
 Creature.prototype.moveRandom = function(){
-    var dir = [];
+    let dir = [];
     if (this.x < 0 || this.y < 0){
         //console.log("hit top: " + this.x + " " + this.y);
         dir = [0, 1];
@@ -44,14 +44,14 @@ Creature.prototype.moveRandom = function(){
     }
     
     
-    var x = random(dir);
-    var y = random(dir);
+    let x = random(dir);
+    let y = random(dir);
     
     return [x,y];
 };
 
 Creature.prototype.update = function(){
-    var arrMovement = this.moveRandom();
+    let arrMovement = this.moveRandom();
     this.x += arrMovement[0];
     this.y += arrMovement[1];
     
@@ -70,7 +70,10 @@ Creature.prototype.update = function(){
 
 Creature.prototype.haveColided = function(creature){
     if(this.x == creature.x && this.y == creature.y){
-       if(this.type == creatureType[1]) { //hunter action
+     
+     return true;
+    }
+     /*  if(this.type == creatureType[1]) { //hunter action
             if (creature.type == creatureType[0]){ //eat pray
                 creature.dead = true;
                 this.health += (default_health/10);
@@ -83,11 +86,11 @@ Creature.prototype.haveColided = function(creature){
            console.log("Pray Mate");
            return encounterType[1];
        } 
-    }
+    }*/
 };
 
 
- Creature.prototype.draw = function(){
+ Creature.prototype.draw = function() {
     ellipseMode(CENTER); 
     this.posx = ((this.x * 10) + 5);
     
@@ -95,8 +98,8 @@ Creature.prototype.haveColided = function(creature){
     
     
     
-    var axis1 = sqWidth - 2;
-    var axis2 = sqHeight - 2;
+    let axis1 = sqWidth - 2;
+    let axis2 = sqHeight - 2;
     
     if (this.type == creatureType[0]){
         fill(0,255,0);
