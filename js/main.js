@@ -88,7 +88,7 @@ function draw(){
         for (var j=i+1;j<prays.length;j++){
             encounter = prays[i].haveColided(prays[j]); 
             if (encounter){
-                if (prays[i].health > 50 && prays[j].health > 50){
+                if (prays[i].health > (default_health*0.3) && prays[j].health > (default_health*0.3)){
                     let prayNewBorn = new Creature(creatureType[0], prays[i].x+1, prays[j]-1);
                     prayNewBorn.health = default_health;
                     prays.push(prayNewBorn);
