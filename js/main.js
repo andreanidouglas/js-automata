@@ -15,8 +15,8 @@ function setup(){
     
     createCanvas(800,600);
     
-    var countPray = random(50,100);
-    var countHunter = random(16,50);
+    var countPray = 300;//random(100,300);
+    var countHunter = 165;//random(500, 800);
     
     for (var i=0;i<countPray;i++){
         prays.push(new Creature(creatureType[0]));
@@ -35,6 +35,12 @@ function setup(){
 }
 
 function draw(){
+
+
+    if (prays.length > 3000 || hunters.length > 3000){
+        prayCount.html("Above treshold. Simulation ended");
+        noLoop();
+    }
     
     prayCount.html(prays.length, false);
     hunterCount.html(hunters.length, false);
@@ -70,9 +76,9 @@ function draw(){
     for (var i=0;i<hunters.length;i++){
         for (var j=0;j<prays.length;j++){
             encounter = hunters[i].haveColided(prays[j]); 
-            if (encounter){
+            if (encounter && hunters[i].health > (prays[j].health * 0.7)){
                 prays[j].dead = true;
-                hunters[i].health += default_health;
+                hunters[i].health += prays[j].health;
             }
         }
     }
@@ -82,7 +88,7 @@ function draw(){
         for (var j=i+1;j<prays.length;j++){
             encounter = prays[i].haveColided(prays[j]); 
             if (encounter){
-                if (prays[i].health > 800 && prays[j].health > 800){
+                if (prays[i].health > 50 && prays[j].health > 50){
                     let prayNewBorn = new Creature(creatureType[0], prays[i].x+1, prays[j]-1);
                     prayNewBorn.health = default_health;
                     prays.push(prayNewBorn);
@@ -96,8 +102,8 @@ function draw(){
         for (var j=i+1;j<hunters.length;j++){
             encounter = hunters[i].haveColided(hunters[j]); 
             if (encounter){
-                console.log(hunters[i].health + " " + hunters[j].health);
-                if (hunters[i].health > 50 && hunters[j].health > 50){
+                //console.log(hunters[i].health + " " + hunters[j].health);
+                if (hunters[i].health > default_health && hunters[j].health > default_health){
                     let hunterNewBorn = new Creature(creatureType[1], hunters[i].x+1, hunters[j]-1);
                     hunterNewBorn.health = default_health;
                     hunters.push(hunterNewBorn);

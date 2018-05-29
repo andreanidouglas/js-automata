@@ -56,7 +56,7 @@ Creature.prototype.update = function(){
     this.y += arrMovement[1];
     
     if (this.type == creatureType[0]){
-        this.health+=1;
+        this.health-=1;
     }
     
     if (this.type == creatureType[1]){
@@ -72,6 +72,8 @@ Creature.prototype.haveColided = function(creature){
     if(this.x == creature.x && this.y == creature.y){
      
      return true;
+    } else {
+        return false;
     }
      /*  if(this.type == creatureType[1]) { //hunter action
             if (creature.type == creatureType[0]){ //eat pray
